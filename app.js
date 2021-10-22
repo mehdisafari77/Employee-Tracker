@@ -1,7 +1,5 @@
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
-const Connection = require('mysql2/typings/mysql/lib/Connection');
-
 
 const db = mysql.createConnection(
     {
@@ -61,3 +59,42 @@ db.connect(err => {
 
   // Create methods that correspond to user switch case choices
 
+  function viewDepartment() {
+      db.query('SELECT * FROM department', (err, res) => {
+          if (err) {
+              throw err
+          }
+          console.table(res)
+      })
+  }
+
+  // viewRoles()
+
+  // viewEmployees()
+
+
+  function addRole() {
+    db.query('SELECT * FROM department', (err, res) => {
+        if (err) {
+            throw err
+        }
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "add_role",
+                message: "What role will the new employee have?"
+            },
+            {
+                type: "input",
+                name: "salary",
+                message: "What is the employee's salary?"
+            },
+            {
+                type: "list",
+                name: "department_id",
+                message: "Select department for this role.",
+                choices: res.map(department => department.name)
+            }
+        ])
+    })
+  }
