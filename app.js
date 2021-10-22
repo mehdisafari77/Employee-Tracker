@@ -131,3 +131,64 @@ db.connect(err => {
         })
     })
   }
+
+  // addDepartment()
+
+
+  // addEmployee()
+
+
+  // updateRole()
+  function updateRole() {
+    connection.query("SELECT * FROM employee", function (err, results){
+    if (err) throw err;
+    inquirer
+    .prompt([{
+        name: 'employeeUpdate',
+        type: 'list',
+        message: 'Choose the employee whose role you would like to update.',
+        choices: results.map(item => item.first_name)
+        },
+    ])
+.then((answer) => {
+    const updateEmployee = (answer.employeeUpdate)
+    connection.query("SELECT * FROM role", function (err, results){
+        if (err) throw err;
+        inquirer
+        .prompt([
+    {
+    name: 'role_id',
+    type: 'list',
+    message: 'Select the new role of the employee.',
+    choices: results.map(item => item.title)
+    },
+])
+    .then((answer) => {
+        const roleChosen = results.find(item => item.title===answer.role_id)
+        connection.query(
+          "UPDATE employee SET ? WHERE first_name = " + "'" + updateEmployee + "'", {
+            role_id: "" + roleChosen.id + "",
+          },
+          function (err) {
+              if (err) throw err;
+              console.log("Successfully updated " + updateEmployee + "'s role to " + answer.role_id + "!");
+            init();
+          }
+        )
+    })
+    })
+    })
+    })
+}
+
+
+
+// * Update employee managers.
+
+// * View employees by manager.
+
+// * View employees by department.
+
+// * Delete departments, roles, and employees.
+
+// * View the total utilized budget of a department&mdash;in other words, the combined salaries of all employees in that department.
