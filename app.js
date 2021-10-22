@@ -1,5 +1,6 @@
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
+const { response } = require('express');
 
 const db = mysql.createConnection(
     {
@@ -65,6 +66,7 @@ db.connect(err => {
               throw err
           }
           console.table(res)
+          init()
       })
   }
 
@@ -95,6 +97,22 @@ db.connect(err => {
                 message: "Select department for this role.",
                 choices: res.map(department => department.name)
             }
-        ])
+        ]).then(response => {
+            const selectedDepartment = res.find(department => department.name === response.department_id)
+
+            db.query('INSERT INTO role SET ?', {
+                title: response.add_role,
+                salary: response.salary,
+                department_id: selectedDepartment.id
+
+            }, function(err) {
+                if (err) {
+                    throw err
+                }
+                init()
+            })
+            
+
+        })
     })
   }
