@@ -70,9 +70,25 @@ db.connect(err => {
       })
   }
 
-  // viewRoles()
+  function viewRoles() {
+    db.query('SELECT * FROM role', (err, res) => {
+        if (err) {
+            throw err
+        }
+        console.table(res)
+        init()
+    })
+}
 
-  // viewEmployees()
+  function viewEmployees() {
+    db.query('SELECT * FROM employee', (err, res) => {
+        if (err) {
+            throw err
+        }
+        console.table(res)
+        init()
+    })
+}
 
 
   function addRole() {
@@ -111,8 +127,7 @@ db.connect(err => {
                 }
                 init()
             })
-            
-
+        
         })
     })
   }
