@@ -45,7 +45,7 @@ function init() {
                 "Add a role",
                 "Add an employee",
                 "Update an employee role",
-
+                "Update an employee manager",
                 "View employees by department",
                 "Delete a department",
                 "Delete a role",
@@ -76,9 +76,14 @@ function init() {
             case "Update an employee role":
                 updateRole()
                 break;
-
+            case "Update an employee manager":
+                updateEmployeeManager()
+            break;
+            // case "View employee by manager":
+            //     viewEmployeeByManager()
+            // break;
             case "View employees by department":
-                viewEmployeesByDepartment()
+                viewEmployeeByDepartment()
                 break;
             case "Delete a department":
                 deleteDepartment()
@@ -101,6 +106,8 @@ function init() {
 
 // Create methods that correspond to user switch case choices
 
+// View Department Function.
+
 function viewDepartment() {
     db.query('SELECT * FROM department', (err, res) => {
         if (err) {
@@ -110,6 +117,8 @@ function viewDepartment() {
         init()
     })
 }
+
+// View Roles Function.
 
 function viewRoles() {
     db.query('SELECT * FROM role', (err, res) => {
@@ -121,6 +130,8 @@ function viewRoles() {
     })
 }
 
+// View Employees Function.
+
 function viewEmployees() {
     db.query('SELECT * FROM employee', (err, res) => {
         if (err) {
@@ -130,6 +141,8 @@ function viewEmployees() {
         init()
     })
 }
+
+// Add Department Function.
 
 function addDepartment() {
     inquirer.prompt([
@@ -151,6 +164,7 @@ function addDepartment() {
     })
 }
 
+// Add Role Function.
 
 function addRole() {
     db.query('SELECT * FROM department', (err, res) => {
@@ -194,7 +208,8 @@ function addRole() {
 }
 
 
-// Add employee function
+// Add Employee Function.
+
 function addEmployee() {
     inquirer.prompt([
         {
@@ -266,6 +281,8 @@ function addEmployee() {
     })
 }
 
+// Update Employee Role Function.
+
 function updateRole() {
     db.query("SELECT * FROM employee", function (err, results) {
         if (err) throw err;
@@ -308,14 +325,42 @@ function updateRole() {
     })
 }
 
+// Update Employee Manager Function.
 
+function updateEmployeeManager() {
 
-// * Update employee managers.
+}
 
-// * View employees by manager.
+// * View Employee By Manager Function.
 
-// * View employees by department.
+function viewEmployeeByManager() {
 
-// * Delete departments, roles, and employees.
+}
 
-// * View the total utilized budget of a department&mdash;in other words, the combined salaries of all employees in that department.
+// View Employees By Department.
+
+function viewEmployeeByDepartment() {
+
+}
+
+// Delete Departments Function.
+
+function deleteDepartment() {
+
+}
+
+// Delete Roles Function.
+function deleteRole() {
+
+}
+
+// Delete Employees Function.
+function deleteEmployee() {
+
+}
+
+// View Department Budgets Function.
+
+function viewDepartmentBudgets() {
+
+}
