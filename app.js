@@ -131,6 +131,27 @@ connectedMesssage = () => {
     })
 }
 
+    function addDepartment() {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "addDepartment",
+                message: "What is the name of the department that you want to add?"
+
+            }
+        ]).then(response => {
+            const addDepartment = "INSERT INTO department (name) VALUES (?)";
+            db.query(addDepartment, response.addDepartment, (err, res) => {
+                if (err) {
+                    throw err;
+                } else {
+                    console.log(`The new department,"${response.addDepartment}" was added to your list of departments`)
+                }
+                init()
+            })
+        })
+    }
+
 
   function addRole() {
     db.query('SELECT * FROM department', (err, res) => {
@@ -173,7 +194,7 @@ connectedMesssage = () => {
     })
   }
 
-  // addDepartment()
+
 
 
   // addEmployee()
