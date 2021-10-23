@@ -18,8 +18,17 @@ db.connect(err => {
     if (err) {
         throw err
     }
-    init()
+    connectedMesssage()
 })
+
+connectedMesssage = () => {
+    console.log("***********************************")
+    console.log("*                                 *")
+    console.log("*      THE EMPLOYEE MANAGER       *")
+    console.log("*                                 *")
+    console.log("***********************************")
+    init();
+  };
 
   // Inquirer prompt with switch case for questions
     function init() {
@@ -28,32 +37,64 @@ db.connect(err => {
                 type: "list",
                 name: "initial_list",
                 message: "What would you like to do?",
-                choices: ["view all departments", "view all roles", "view all employees", "add a department", "add a role", "add an employee", "update an employee role"]
+                choices: [
+                    "View all departments", 
+                    "View all roles", 
+                    "View all employees", 
+                    "Add a department", 
+                    "Add a role", 
+                    "Add an employee", 
+                    "Update an employee role",
+
+                    "View employees by department",
+                    "Delete a department",
+                    "Delete a role",
+                    "Delete an employee",
+                    "View department budgets",
+                    "No Action"]
             }
         ]).then(response => {
             switch (response.initial_list) {
-                case "view all departments": 
+                case "View all departments": 
                 viewDepartment()
                 break;
-                case "view all roles": 
+                case "View all roles": 
                 viewRoles()
                 break;
-                case "view all employees": 
+                case "View all employees": 
                 viewEmployees()
                 break;
-                case "add a department": 
+                case "Add a department": 
                 addDepartment()
                 break;
-                case "add a role": 
+                case "Add a role": 
                 addRole()
                 break;
-                case "add an employee": 
+                case "Add an employee": 
                 addEmployee()
                 break;
-                case "update an employee role": 
+                case "Update an employee role": 
                 updateRole()
                 break;
 
+                case "View employees by department": 
+                viewEmployeesByDepartment()
+                break; 
+                case "Delete a department": 
+                deleteDepartment()
+                break;
+                case "Delete a role": 
+                deleteRole()
+                break;
+                case "Delete an employee": 
+                deleteEmployee()
+                break;
+                case "View department budgets": 
+                viewDepartmentBudgets()
+                break;
+                case "No Action": 
+                connection.end()
+                break;
             }
         })
     }
