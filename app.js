@@ -328,7 +328,31 @@ function updateRole() {
 // Update Employee Manager Function.
 
 function updateEmployeeManager() {
+    const selectEmployee = "SELECT * FROM employee";
 
+    db.query(selectEmployee, (err, res) => {
+        if (err) {
+            throw err;
+        }
+        const employees = data.map(({ id, first_name, last_name }) => ({ name: first_name + " " + last_name, value: id}));
+
+        inquirer.prompt([
+            {
+                type: "list",
+                name: "name",
+                message: "Which of the employees require an update?",
+                choices: employees
+            }
+        ]).then(response => {
+            const employee = response.name
+            const params = []
+            params.push(employee)
+
+            const selectManager = "SELECT * FROM employee";
+
+            db.query()
+        })
+    })
 }
 
 // * View Employee By Manager Function.
