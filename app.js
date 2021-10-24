@@ -334,7 +334,7 @@ function updateEmployeeManager() {
         if (err) {
             throw err;
         }
-        const employees = data.map(({ id, first_name, last_name }) => ({ name: first_name + " " + last_name, value: id}));
+        const employees = res.map(({ id, first_name, last_name }) => ({ name: first_name + " " + last_name, value: id}));
 
         inquirer.prompt([
             {
@@ -350,7 +350,39 @@ function updateEmployeeManager() {
 
             const selectManager = "SELECT * FROM employee";
 
-            db.query()
+            db.query(selectManager, (err, res) => {
+                if (err) {
+                    throw err;
+                }
+
+                const managers = res.map(({ id, first_name, last_name }) => ({ name: first_name + " " + last_name, value: id }))
+
+                inquirer.prompt([
+                    {
+                        type: 'list',
+                        name: 'manager',
+                        message: "Who is the employee's manager?",
+                        choices: managers
+                    }
+                ]).then(response => {
+                    const manager = response.manager
+                    params.push(manager)
+
+                    let employee = params[0]
+                    params[0] = manager
+                    params[1] = employee
+
+                    const updateEmployeeManager = "UPDATE employee SET manager_id = ? WHERE id = ?";
+
+                    db.query(updateEmployeeManager, params, (err, res) => {
+                        if (err) {
+                            throw err
+                        }
+                        console.log("Employee has been successfully updated!")
+                        init()
+                    })
+                })
+            })
         })
     })
 }
