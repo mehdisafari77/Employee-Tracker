@@ -454,14 +454,14 @@ function deleteRole() {
 // Delete Departments Function.
 
 function deleteDepartment() {
-    const selectRole = "SELECT * FROM department";
+    const selectDepartment = "SELECT * FROM department";
 
-    db.query(selectRole, (err, res) => {
+    db.query(selectDepartment, (err, res) => {
         if (err) {
             throw err
         }
 
-        const role = res.map(({ name, id }) => ({
+        const department = res.map(({ name, id }) => ({
             name: name, value: id }))
 
         inquirer.prompt([
@@ -469,7 +469,7 @@ function deleteDepartment() {
                 type: 'list', 
                 name: 'department',
                 message: "What is the department you want deleted?",
-                choices: role 
+                choices: department 
             }
         ]).then(response => {
             const department = response.department
@@ -488,9 +488,40 @@ function deleteDepartment() {
     })
 }
 
-// Delete Employees Function.
+// Delete Employee Function.
 function deleteEmployee() {
+    const selectEmployee = "SELECT * FROM employee";
 
+    db.query(selectEmployee, (err, res) => {
+        if (err) {
+            throw err
+        }
+
+        const employee = res.map(({ id, first_name, last_name }) => ({
+            name: first_name + " " + last_name, value: id }))
+
+        inquirer.prompt([
+            {
+                type: 'list', 
+                name: 'name',
+                message: "Which employee is it that you want deleted?",
+                choices: employee 
+            }
+        ]).then(response => {
+            const employee = response.name
+            const deleteEmployee = "DELETE FROM employee WHERE id = ?";
+
+            db.query(deleteEmployee, employee, (err, res) => {
+                if (err) {
+                    throw err
+                }
+                console.log("\n Successfully deleted the chosen employee! \n")
+
+                init()
+            })
+            
+        })
+    })
 }
 
 // View Department Budgets Function.
