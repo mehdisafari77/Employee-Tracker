@@ -22,11 +22,11 @@ db.connect(err => {
 })
 
 connectedMesssage = () => {
-    console.log("***********************************")
-    console.log("*                                 *")
-    console.log("*      THE EMPLOYEE MANAGER       *")
-    console.log("*                                 *")
-    console.log("***********************************")
+    console.log("##################################")
+    console.log("#                                #")
+    console.log("# THE EMPLOYEE MANAGEMENT SYSTEM #")
+    console.log("#                                #")
+    console.log("##################################")
     init();
 };
 
@@ -158,7 +158,7 @@ function addDepartment() {
             if (err) {
                 throw err;
             }
-            console.log(`Department "${response.addDepartment}" succesfully added to departments `)
+            console.log(`\n Department "${response.addDepartment}" succesfully added to departments \n`)
             init()
         })
     })
@@ -268,7 +268,7 @@ function addEmployee() {
                             if (err) {
                                 throw err;
                             }
-                            console.log("New employee has been successfully added!")
+                            console.log("\nNew employee has been successfully added! \n")
                             init();
 
                         })
@@ -315,7 +315,7 @@ function updateRole() {
                             },
                                 function (err) {
                                     if (err) throw err;
-                                    console.log("Successfully updated " + updateEmployee + "'s role to " + answer.role_id + "!");
+                                    console.log(" \n Successfully updated " + updateEmployee + "'s role to " + answer.role_id + "! \n");
                                     init();
                                 }
                             )
@@ -378,7 +378,7 @@ function updateEmployeeManager() {
                         if (err) {
                             throw err
                         }
-                        console.log("Employee has been successfully updated!")
+                        console.log("\n Employee has been successfully updated! \n")
                         init()
                     })
                 })
@@ -396,17 +396,33 @@ function viewEmployeeByManager() {
 // View Employees By Department.
 
 function viewEmployeeByDepartment() {
+    console.log('\n Now displaying all employees by department...\n');
+    const selectEmployeeDep = `
+    SELECT employee.first_name, 
+    employee.last_name, 
+    department.name AS department FROM employee 
+    LEFT JOIN role ON employee.role_id = role.id 
+    LEFT JOIN department ON role.department_id = department.id
+    `
 
+    db.query(selectEmployeeDep, (err, res) => {
+        if (err) {
+            throw err
+        }
+        console.table(res)
+        init()
+    })
 }
+
+
+// Delete Roles Function.
+function deleteRole() {
+
+} 
 
 // Delete Departments Function.
 
 function deleteDepartment() {
-
-}
-
-// Delete Roles Function.
-function deleteRole() {
 
 }
 
