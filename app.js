@@ -442,7 +442,7 @@ function deleteRole() {
                 if (err) {
                     throw err
                 }
-                console.log("\n Successfully deleted \n")
+                console.log("\n Successfully deleted the chosen role \n")
 
                 init()
             })
@@ -454,7 +454,38 @@ function deleteRole() {
 // Delete Departments Function.
 
 function deleteDepartment() {
+    const selectRole = "SELECT * FROM department";
 
+    db.query(selectRole, (err, res) => {
+        if (err) {
+            throw err
+        }
+
+        const role = res.map(({ name, id }) => ({
+            name: name, value: id }))
+
+        inquirer.prompt([
+            {
+                type: 'list', 
+                name: 'department',
+                message: "What is the department you want deleted?",
+                choices: role 
+            }
+        ]).then(response => {
+            const department = response.department
+            const deleteDepartment = "DELETE FROM department WHERE id = ?";
+
+            db.query(deleteDepartment, department, (err, res) => {
+                if (err) {
+                    throw err
+                }
+                console.log("\n Successfully deleted the chosen department! \n")
+
+                init()
+            })
+            
+        })
+    })
 }
 
 // Delete Employees Function.
