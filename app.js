@@ -417,7 +417,38 @@ function viewEmployeeByDepartment() {
 
 // Delete Roles Function.
 function deleteRole() {
+    const selectRole = "SELECT * FROM role";
 
+    db.query(selectRole, (err, res) => {
+        if (err) {
+            throw err
+        }
+
+        const role = res.map(({ title, id }) => ({
+            name: title, value: id }))
+
+        inquirer.prompt([
+            {
+                type: 'list', 
+                name: 'role',
+                message: "What is the role you want deleted?",
+                choices: role 
+            }
+        ]).then(response => {
+            const role = response.role
+            const deleteRole = "DELETE FROM role WHERE id = ?";
+
+            db.query(deleteRole, role, (err, res) => {
+                if (err) {
+                    throw err
+                }
+                console.log("\n Successfully deleted \n")
+
+                init()
+            })
+            
+        })
+    })
 } 
 
 // Delete Departments Function.
