@@ -527,5 +527,21 @@ function deleteEmployee() {
 // View Department Budgets Function.
 
 function viewDepartmentBudgets() {
+    console.log("\n Now displaying budgets by department... \n")
 
+    const selectDepartment = `
+    SELECT department_id AS id,
+    department.name AS department,
+    SUM(salary) AS budget FROM role
+    JOIN department ON role.department_id = department.id 
+    GROUP by department_id
+    `
+    db.query(selectDepartment, (err, res) => {
+        if (err) {
+            throw err
+        }
+        console.table(res)
+        
+        init()
+    })
 }
