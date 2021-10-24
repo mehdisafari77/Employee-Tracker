@@ -24,7 +24,12 @@ db.connect(err => {
 connectedMesssage = () => {
     console.log("##################################")
     console.log("#                                #")
+    console.log("#                                #")
+    console.log("#                                #")
+    console.log("#           WELCOME TO           #")
     console.log("# THE EMPLOYEE MANAGEMENT SYSTEM #")
+    console.log("#                                #")
+    console.log("#                                #")
     console.log("#                                #")
     console.log("##################################")
     init();
@@ -98,7 +103,7 @@ function init() {
                 viewDepartmentBudgets()
                 break;
             case "No Action":
-                connection.end()
+                db.end()
                 break;
         }
     })
@@ -541,7 +546,7 @@ function viewDepartmentBudgets() {
             throw err
         }
         console.table(res)
-        
+
         init()
     })
 }
