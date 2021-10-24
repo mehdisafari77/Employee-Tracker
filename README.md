@@ -7,6 +7,7 @@ This is a terminal based project that allows users to manage a databse of employ
 https://youtu.be/GoqQiboE4QQ
 
 ## Screenshot Of Initial Prompts
+<img width="704" alt="Screenshot 2021-10-23 at 20 01 02" src="https://user-images.githubusercontent.com/75599021/138578577-8aa3be98-cad2-4f1c-8e6f-c72bf193533f.png">
 
 ## Built With
 * [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
