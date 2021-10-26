@@ -2,14 +2,16 @@ const mysql = require('mysql2');
 const inquirer = require('inquirer');
 const { response } = require('express');
 
+require('dotenv').config()
+
 const db = mysql.createConnection(
     {
-        host: 'localhost',
+        host: process.env.DB_HOST,
         // MySQL username,
-        user: 'root',
+        user: process.env.DB_USER,
         // MySQL password
-        password: 'password',
-        database: 'employees_db'
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME
     },
     console.log(`Connected to the employees_db database.`)
 );
