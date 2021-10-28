@@ -20,7 +20,7 @@ https://youtu.be/GoqQiboE4QQ
 2. Navigate to repo file.
 3. enter in Terminal "npm install" in order to install all dependecies (inquirer, express, mysql2, dotenv).
 4. Start the prompt generation by running "node app.js" within your Terminal.
-6. After each question is answered, you will be able to view the edits that you made within your database using mysql workbench.
+5. After each question is answered, you will be able to view the edits that you made within your database using mysql workbench.
 
 ## Code Snippet Of How To Add A Department
 ```javascript
